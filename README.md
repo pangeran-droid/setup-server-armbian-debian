@@ -155,19 +155,19 @@ Composer version 2.7.1 2026-03-14 15:03:16
 ```bash
 apt-get install git
 git config --global user.name "nama"
-git config --global user.email "nama@gmail.com"
+git config --global user.email "nama@example.com"
 git config --list
 ```
 Contoh output `git config --list`:
 ```
 user.name=nama
-user.email=nama@gmail.com
+user.email=nama@example.com
 ```
 
 SSH key untuk Git:
 
 ```bash
-ssh-keygen -t ed25519 -C "nama@gmail.com"
+ssh-keygen -t ed25519 -C "nama@example.com"
 ```
 Contoh output:
 ```
@@ -182,7 +182,7 @@ cat ~/.ssh/id_ed25519.pub
 ```
 Contoh output (tambahkan ke GitHub/GitLab > SSH Keys):
 ```
-ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAI... nama@gmail.com
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAI... nama@example.com
 ```
 
 ## 7. Docker
