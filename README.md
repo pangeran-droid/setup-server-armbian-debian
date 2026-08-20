@@ -312,13 +312,13 @@ cloudflared version 2026.7.0 (built 2026-07-15)
 ```
 
 ```bash
-# install sebagai service (token didapat dari dashboard Cloudflare Zero Trust)
+# install sebagai service (token didapat dari dashboard Cloudflare)
 sudo cloudflared service install <TOKEN_TUNNEL>
 ```
 Contoh output jika berhasil:
 ```
-Installing an Argo Tunnel Service
-Argo Tunnel service installed successfully
+2026-07-15 INF Using Systemd
+2026-07-15 INF Linux service for cloudflared installed successfully
 ```
 
 ## 10. File Browser
