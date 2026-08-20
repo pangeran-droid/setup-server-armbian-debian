@@ -1,11 +1,14 @@
 <p align="center">
-  <img src="https://blog.armbian.com/content/images/2025/08/high.jpg" alt="Armbian" width="500" style="object-fit: cover; height: 150px;">
+  <img src=".github/media/armbian-banner.png" alt="Armbian" width="400">
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/OS-Armbian%20Debian-orange?logo=debian&logoColor=white" alt="Armbian Debian">
+  <img src="https://img.shields.io/badge/OS-Armbian-orange?logo=arm&logoColor=white" alt="Armbian">
+  <img src="https://img.shields.io/badge/Debian-Linux-A81D33?logo=debian&logoColor=white" alt="Debian Linux">
+  <img src="https://img.shields.io/badge/Linux-Server-FCC624?logo=linux&logoColor=black" alt="Linux Server">
+  <img src="https://img.shields.io/badge/Architecture-ARM64-blue?logo=arm&logoColor=white" alt="ARM64">
+  <img src="https://img.shields.io/badge/Shell-Bash-4EAA25?logo=gnubash&logoColor=white" alt="Bash">
   <img src="https://img.shields.io/badge/Status-Active-brightgreen" alt="Status Active">
-  <img src="https://img.shields.io/badge/Architecture-ARM64-blue" alt="ARM64">
 </p>
 
 <h1 align="center">Setup Server Armbian Debian</h1>
