@@ -434,7 +434,7 @@ hostname -I
 ```
 Contoh output:
 ```
-192.168.18.96
+192.168.x.x
 ```
 
 ```bash
@@ -443,7 +443,7 @@ ip -4 addr
 Contoh output:
 ```
 2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500
-    inet 192.168.18.96/24 brd 192.168.18.255 scope global eth0
+    inet 192.168.x.x/24 brd 192.168.x.255 scope global eth0
 ```
 
 ```bash
@@ -451,16 +451,16 @@ ip route
 ```
 Contoh output:
 ```
-default via 192.168.18.1 dev eth0
-192.168.18.0/24 dev eth0 proto kernel scope link src 192.168.18.96
+default via 192.168.x.1 dev eth0
+192.168.x.0/24 dev eth0 proto kernel scope link src 192.168.x.x
 ```
 
 ### Set IP manual (sementara, hilang setelah reboot)
 
 ```bash
-ip addr add 192.168.18.96/24 dev eth0
-ip route add default via 192.168.18.1
-ping -c 3 192.168.18.1
+ip addr add 192.168.x.x/24 dev eth0
+ip route add default via 192.168.x.1
+ping -c 3 192.168.x.1
 ```
 Contoh output ping berhasil:
 ```
@@ -474,7 +474,7 @@ cat /etc/resolv.conf
 ```
 Contoh output:
 ```
-nameserver 192.168.18.1
+nameserver 192.168.x.1
 nameserver 8.8.8.8
 ```
 
@@ -489,12 +489,12 @@ Global
 Link 2 (eth0)
     Current Scopes: DNS
 DefaultRoute setting: yes
-     Current DNS Server: 192.168.18.1
-        DNS Servers: 192.168.18.1 8.8.8.8
+     Current DNS Server: 192.168.x.1
+        DNS Servers: 192.168.x.1 8.8.8.8
 ```
 
 ```bash
-resolvectl dns eth0 192.168.18.1 8.8.8.8
+resolvectl dns eth0 192.168.x.1 8.8.8.8
 resolvectl domain eth0 '~.'
 resolvectl query ports.ubuntu.com
 ```
@@ -525,13 +525,13 @@ network:
   ethernets:
     eth0:
       addresses:
-        - 192.168.18.96/24
+        - 192.168.x.x/24
       routes:
         - to: default
-          via: 192.168.18.1
+          via: 192.168.x.1
       nameservers:
         addresses:
-          - 192.168.18.1
+          - 192.168.x.1
           - 8.8.8.8
 ```
 
@@ -558,7 +558,7 @@ ip route
 resolvectl status
 resolvectl query ports.ubuntu.com
 
-ping -c 3 192.168.18.1
+ping -c 3 192.168.x.1
 ping -c 3 8.8.8.8
 ping -c 3 ports.ubuntu.com
 
