@@ -1,6 +1,6 @@
 # Setup Server Armbian Debian
 
-Catatan langkah-langkah instalasi & konfigurasi setelah Armbian Debian berhasil masuk (login pertama). Setiap perintah dilengkapi contoh output yang biasa muncul, supaya lebih mudah tahu apakah langkahnya berhasil.
+Catatan langkah-langkah instalasi & konfigurasi setelah Armbian Debian berhasil masuk (login pertama).
 
 ## 1. Update Sistem
 
@@ -37,7 +37,7 @@ Cek log jika gagal:
 journalctl -u apache2 -n 50
 ```
 
-Jika Apache gagal start karena masalah PAM:
+Jika Apache gagal start karena masalah PAM (Pluggable Authentication Modules):
 
 ```bash
 apt-get install --reinstall libpam-modules
@@ -141,20 +141,20 @@ Composer version 2.7.1 2026-03-14 15:03:16
 
 ```bash
 apt-get install git
-git config --global user.name "spasi"
-git config --global user.email "spasi@gmail.com"
+git config --global user.name "nama"
+git config --global user.email "nama@gmail.com"
 git config --list
 ```
 Contoh output `git config --list`:
 ```
-user.name=spasi
-user.email=spasi@gmail.com
+user.name=nama
+user.email=nama@gmail.com
 ```
 
 SSH key untuk Git:
 
 ```bash
-ssh-keygen -t ed25519 -C "spasi@gmail.com"
+ssh-keygen -t ed25519 -C "nama@gmail.com"
 ```
 Contoh output:
 ```
@@ -169,7 +169,7 @@ cat ~/.ssh/id_ed25519.pub
 ```
 Contoh output (tambahkan ke GitHub/GitLab > SSH Keys):
 ```
-ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAI... spasi@gmail.com
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAI... nama@gmail.com
 ```
 
 ## 7. Docker
@@ -319,7 +319,7 @@ File Browser installed to /usr/local/bin/filebrowser
 Run 'filebrowser -h' to see the help
 ```
 
-## 11. Cockpit (Web Admin Panel)
+## 11. Cockpit (Alternatif Web Admin Panel)
 
 Aktifkan repo backports sesuai versi OS:
 
@@ -412,45 +412,7 @@ v18.19.1
 9.2.0
 ```
 
-## 13. Tools Tambahan
-
-```bash
-apt-get install fastfetch   # info sistem
-apt-get install cron        # scheduler
-apt-get install at          # jadwal one-time task
-```
-
-Contoh output `fastfetch`:
-```
-root@armbian
-------------
-OS: Debian GNU/Linux 12 (bookworm) aarch64
-Kernel: 6.1.75-current-rockchip64
-Uptime: 2 days, 3 hours
-CPU: Rockchip RK3588
-Memory: 1.2GiB / 8.0GiB
-```
-
-Contoh jadwal reboot otomatis pakai `at`:
-
-```bash
-echo "/sbin/reboot" | sudo at 23:50 Sun
-```
-Contoh output:
-```
-warning: commands will be executed using /bin/sh
-job 3 at Sun Aug 23 23:50:00 2026
-```
-
-```bash
-atq   # cek antrian job
-```
-Contoh output:
-```
-3    Sun Aug 23 23:50:00 2026 a root
-```
-
-## 14. Konfigurasi Jaringan
+## 13. Konfigurasi Jaringan
 
 ### Cek status interface
 
@@ -546,15 +508,18 @@ Contoh isi file untuk IP statis:
 ```yaml
 network:
   version: 2
+  renderer: NetworkManager
   ethernets:
     eth0:
-      dhcp4: no
-      addresses: [192.168.18.96/24]
+      addresses:
+        - 192.168.18.96/24
       routes:
         - to: default
           via: 192.168.18.1
       nameservers:
-        addresses: [192.168.18.1, 8.8.8.8]
+        addresses:
+          - 192.168.18.1
+          - 8.8.8.8
 ```
 
 ```bash
@@ -580,47 +545,13 @@ ip route
 resolvectl status
 resolvectl query ports.ubuntu.com
 
-ping -c 2 192.168.18.1
-ping -c 2 8.8.8.8
-ping -c 2 ports.ubuntu.com
+ping -c 3 192.168.18.1
+ping -c 3 8.8.8.8
+ping -c 3 ports.ubuntu.com
 
 reboot
 ```
 
-> Catatan: jika sebelumnya sempat instal Samba lalu dihapus, bersihkan sisa konfigurasi PAM:
-> ```bash
-> sudo systemctl stop smbd nmbd
-> sudo apt-get purge samba samba-common samba-common-bin smbclient -y
-> sudo apt-get autoremove -y
-> sudo pam-auth-update --force
-> sudo rm -f /etc/pam.d/samba
-> ```
-
-## 15. Troubleshooting Repo `noble-backports` (Debian vs Ubuntu codename)
-
-Jika base OS sebenarnya Ubuntu (`noble`) tapi baris backports salah menunjuk ke repo Debian, `apt-get update` akan gagal seperti ini:
-
-```
-Err:3 http://deb.debian.org/debian noble-backports InRelease
-  404  Not Found
-```
-
-Perbaikan — nonaktifkan baris lama lalu tambahkan repo backports yang benar:
-
-```bash
-grep -Rni "deb.debian.org.*noble" /etc/apt/sources.list /etc/apt/sources.list.d/ 2>/dev/null
-sed -i 's|^deb http://deb.debian.org/debian noble-backports|# deb http://deb.debian.org/debian noble-backports|' /etc/apt/sources.list.d/backports.list
-apt-get update
-apt-get install -t noble-backports cockpit cockpit-system cockpit-bridge
-systemctl restart cockpit
-```
-
-Setelah diperbaiki, `apt-get update` seharusnya menunjukkan:
-```
-Hit:3 http://archive.ubuntu.com/ubuntu noble-backports InRelease
-Reading package lists... Done
-```
-
 ---
 
-**Catatan umum:** selalu jalankan `reboot` setelah perubahan besar (instalasi kernel module, PAM, jaringan) untuk memastikan service jalan normal.
+**Catatan:** selalu jalankan `reboot` setelah perubahan besar (instalasi kernel module, PAM, jaringan) untuk memastikan service jalan normal.
