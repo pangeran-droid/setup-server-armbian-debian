@@ -1,6 +1,16 @@
-# Setup Server Armbian Debian
+<p align="center">
+  <img src="https://blog.armbian.com/content/images/2025/08/high.jpg" alt="Armbian" width="500" style="object-fit: cover; height: 150px;">
+</p>
 
-Catatan langkah-langkah instalasi & konfigurasi setelah Armbian Debian berhasil masuk (login pertama).
+<p align="center">
+  <img src="https://img.shields.io/badge/OS-Armbian%20Debian-orange?logo=debian&logoColor=white" alt="Armbian Debian">
+  <img src="https://img.shields.io/badge/Status-Active-brightgreen" alt="Status Active">
+  <img src="https://img.shields.io/badge/Architecture-ARM64-blue" alt="ARM64">
+</p>
+
+<h1 align="center">Setup Server Armbian Debian</h1>
+
+<p align="center">Catatan langkah-langkah instalasi & konfigurasi setelah Armbian Debian berhasil masuk (login pertama).</p>
 
 ## 1. Update Sistem
 
